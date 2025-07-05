@@ -8,13 +8,24 @@ dotenv.config();
 const app = express();
 const PORT = process.env.APP_PORT || 3001;
 
-app.use(cors());
-app.use(express.json());
+const allowedOrigins = [
+    'http://localhost:5173',
+    'https://sync360-primeira-etapa.vercel.app' 
+];
 
-// Usa as rotas definidas em userRoutes.js para caminho /usuario
+app.use(cors({
+    origin: (origin, callback) => {
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.includes(origin)) {
+            return callback(null, true);
+        }
+        return callback(new Error('CORS policy: origem não permitida'));
+    }
+}));
+
+app.use(express.json());
 app.use('/usuario', usuarioRoutes);
 
-// Inicia servidor
 app.listen(PORT, () => {
     console.log(`Servidor rodando em: ${PORT}`);
 });
