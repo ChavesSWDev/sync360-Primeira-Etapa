@@ -13,10 +13,10 @@ const UserProfile = () => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        fetch(`http://localhost:3001/usuario/${id}`)
+        fetch(`${import.meta.env.VITE_API_URL}/usuario/${id}`)
             .then(res => {
                 if (!res.ok) throw new Error('Erro ao buscar dados');
-                return res.text();
+                return res.text(); // continua usando .text()
             })
             .then(text => {
                 try {

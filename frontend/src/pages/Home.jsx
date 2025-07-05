@@ -19,7 +19,7 @@ const Home = () => {
         setLoading(true);
         setError(null);
         try {
-            const res = await fetch('http://localhost:3001/usuario'); // rota backend pra listar usuários
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/usuario`);
             if (!res.ok) throw new Error('Erro ao buscar usuários');
             const data = await res.json();
             setUsuarios(data);
@@ -48,11 +48,10 @@ const Home = () => {
         if (!window.confirm('Quer mesmo deletar esse usuário?')) return;
 
         try {
-            const res = await fetch(`http://localhost:3001/usuario/${id}`, {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/usuario/${id}`, {
                 method: 'DELETE',
             });
             if (!res.ok) throw new Error('Falha ao deletar');
-            // Atualiza lista local após deletar
             setUsuarios((prev) => prev.filter((u) => u.id !== id));
         } catch (err) {
             alert('Erro ao deletar usuário: ' + err.message);
@@ -93,7 +92,7 @@ const Home = () => {
                         <input
                             type="text"
                             placeholder="Pesquisar usuário pelo nome..."
-                            className="w-full pl-10 p-3 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base border-2 border-black"
+                            className="w-full pl-10 p-3 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base border-2 border-black"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                             disabled={loading || !serverOnline}

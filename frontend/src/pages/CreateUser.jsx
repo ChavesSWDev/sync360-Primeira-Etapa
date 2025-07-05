@@ -36,7 +36,7 @@ const CreateUser = () => {
         setSuccess(false);
 
         try {
-            const res = await fetch('http://localhost:3001/usuario', {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/usuario`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -148,8 +148,8 @@ const CreateUser = () => {
                                 type="submit"
                                 disabled={isSubmitting}
                                 className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-md text-white font-semibold transition-all text-sm sm:text-base ${isSubmitting
-                                        ? 'bg-gray-400 cursor-not-allowed'
-                                        : 'bg-gradient-to-r from-green-500 to-green-700 hover:brightness-110 shadow hover:shadow-lg border-2 border-black'
+                                    ? 'bg-gray-400 cursor-not-allowed'
+                                    : 'bg-gradient-to-r from-green-500 to-green-700 hover:brightness-110 shadow hover:shadow-lg border-2 border-black'
                                     }`}
                             >
                                 <FaCheck />

@@ -26,7 +26,7 @@ const EditProfileForm = () => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        fetch(`http://localhost:3001/usuario/${id}`)
+        fetch(`${import.meta.env.VITE_API_URL}/usuario/${id}`)
             .then(res => {
                 if (!res.ok) throw new Error('Erro ao buscar dados do usuário');
                 return res.json();
@@ -60,7 +60,7 @@ const EditProfileForm = () => {
         setError(null);
 
         try {
-            const res = await fetch(`http://localhost:3001/usuario/${id}`, {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/usuario/${id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData),
@@ -146,8 +146,8 @@ const EditProfileForm = () => {
                                 type="submit"
                                 disabled={saving}
                                 className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-md text-white font-bold transition-all text-sm sm:text-base ${saving
-                                        ? 'bg-gray-400 cursor-not-allowed'
-                                        : 'bg-gradient-to-r from-green-500 to-green-700 hover:brightness-110 shadow hover:shadow-lg border-2 border-black'
+                                    ? 'bg-gray-400 cursor-not-allowed'
+                                    : 'bg-gradient-to-r from-green-500 to-green-700 hover:brightness-110 shadow hover:shadow-lg border-2 border-black'
                                     }`}
                             >
                                 <FaCheck />
